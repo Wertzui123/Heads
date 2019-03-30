@@ -62,7 +62,7 @@ class PlayerHead extends PluginBase implements Listener{
                 $event->setCancelled(true);
             }
         }
-    }
+		}
 
     /**
      * @param CompoundTag|Skin $skin
