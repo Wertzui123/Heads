@@ -34,9 +34,9 @@ class PHCommand extends Command{
 
 	public function __construct(){
 		parent::__construct(
-			"playerhead",
-			"Give a player head",
-			"/playerhead <playerName:string>",
+			"head",
+			"Get the head of a player",
+			"/playerhead <player>",
 			["ph"]
 		);
 
@@ -53,9 +53,10 @@ class PHCommand extends Command{
 		}
 
 		$player = $sender->getServer()->getPlayer(implode(" ", $args));
+		$name = $player->getName();
 		if($player instanceof Player){
 			$sender->getInventory()->addItem(PlayerHead::getPlayerHeadItem(new Skin($player->getName(), $player->getSkin()->getSkinData())));
-			$sender->sendMessage("§8» §a{$player->getName()}'s head added in your inventory.");
+			$sender->sendMessage("§aYou got" . $name . "'s head.");
 		}
 
 		return true;
