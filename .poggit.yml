@@ -1,0 +1,7 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Wertzui123/Not-Working
+branches:
+- master
+projects:
+  Not-Working:
+    path: ""
+...
