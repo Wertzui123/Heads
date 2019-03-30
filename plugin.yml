@@ -4,6 +4,7 @@ main: Enes5519\PlayerHead\PlayerHead
 api: [3.0.0-ALPHA12, 3.0.0, 3.0.1, 3.0.2, 3.0.3, 4.0.0]
 author: Enes5519
 fixer: WolfTubeTM
+forker: Wertzui123
 
 permissions:
   playerhead:
