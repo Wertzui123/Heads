@@ -2,6 +2,6 @@
 branches:
 - master
 projects:
-  CB-PlayerHeadPMMP:
+  CB-Heads:
     path: ""
 ...
