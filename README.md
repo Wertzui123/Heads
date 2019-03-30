@@ -1,7 +1,7 @@
 # PlayerHeadPMMP
 ## Plugin manager of the player's head
 # Commands
-/playerhead <player Name> - Take the player's head
+/head player - Take the player's head
 # Permissions
 playerhead.give: Allows players to use commands.
 
