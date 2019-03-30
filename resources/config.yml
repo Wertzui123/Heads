@@ -1,6 +1,6 @@
 ---
-#The name of the item
-#{player} is the player with the head in his skin
-#ISN'T WORKING NOW
+# The name of the item
+# {player} is the player with the head in his skin
+# ISN'T WORKING NOW
 item_name: "{player}'s head"
 ...
