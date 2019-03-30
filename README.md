@@ -1,4 +1,4 @@
-# PlayerHeadPMMP
+# CB-PlayerHeadPMMP
 ## Plugin manager of the player's head
 # Commands
 /head player - Take the player's head
