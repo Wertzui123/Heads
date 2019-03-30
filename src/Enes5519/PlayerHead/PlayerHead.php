@@ -50,7 +50,7 @@ class PlayerHead extends PluginBase implements Listener{
         $player = $event->getPlayer();
 	$plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this);
         if($player->hasPermission("playerhead.spawn") and ($item = $player->getInventory()->getItemInHand())->getId() == Item::MOB_HEAD){
-		if($plot !== null and $plot->owner == $player->getName() or $player->hasPermission("myplot.admin.build.plot")
+		if($plot !== null and $plot->owner == $player->getName() or $player->hasPermission("myplot.admin.build.plot"){
             $blockData = $item->getCustomBlockData() ?? new CompoundTag();
             $skin = $blockData->getCompoundTag("Skin");
             if($skin !== null){
