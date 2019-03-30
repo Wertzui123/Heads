@@ -35,7 +35,7 @@ class PHCommand extends Command{
 	public function __construct(){
 		parent::__construct(
 			"head",
-			"Get the head of a player",
+			"Give's you the head of a player",
 			"/head <player>",
 			["ph"]
 		);
