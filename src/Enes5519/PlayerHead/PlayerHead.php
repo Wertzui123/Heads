@@ -21,56 +21,117 @@
 
 declare(strict_types=1);
 
-namespace Enes5519\PlayerHead\entities;
+namespace Enes5519\PlayerHead;
 
-use Enes5519\PlayerHead\PlayerHead;
-use pocketmine\entity\Human;
+use Enes5519\PlayerHead\commands\PHCommand;
+use Enes5519\PlayerHead\entities\HeadEntity;
+use pocketmine\entity\Entity;
 use pocketmine\entity\Skin;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\Listener;
+use pocketmine\item\Item;
+use pocketmine\item\ItemFactory;
+use pocketmine\level\Position;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\tag\ByteArrayTag;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
-use pocketmine\utils\UUID;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\plugin\PluginBase;
 
-class HeadEntity extends Human{
+class PlayerHead extends PluginBase implements Listener{
 
-    public const HEAD_GEOMETRY = '{"geometry.player_head":{"texturewidth":64,"textureheight":64,"bones":[{"name":"head","pivot":[0,24,0],"cubes":[{"origin":[-4,0,-4],"size":[8,8,8],"uv":[0,0]}]}]}}';
-
-    public $width = 0.5, $height = 0.6;
-
-    protected function initEntity() : void{
-        $this->setMaxHealth(1);
-        parent::initEntity();
-        $this->setSkin(new Skin($this->skin->getSkinId(), $this->skin->getSkinData(), "", "geometry.player_head", self::HEAD_GEOMETRY));
+    public function onEnable(){
+        Entity::registerEntity(HeadEntity::class, true, ["PlayerHead"]);
+        $this->getServer()->getCommandMap()->register("playerhead", new PHCommand());
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
 
-    public function hasMovementUpdate() : bool{
-        return false;
-    }
-
-    public function getUniqueId() : UUID{
-        return $this->uuid;
-    }
-
-  public function attack(EntityDamageEvent $source) : void{
-    if($source instanceof EntityDamageByEntityEvent and $source->getDamager() instanceof Player){
-        $player = $source->getDamager();
-        $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this);
-        
-        if($plot !== null and $plot->owner !== $player->getName()){
-            return;
+    public function onPlace(BlockPlaceEvent $event){
+        $player = $event->getPlayer();
+		$position  = $player->getPosition();
+	$plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($position);
+        if($player->hasPermission("playerhead.spawn") and ($item = $player->getInventory()->getItemInHand())->getId() == Item::MOB_HEAD){
+		if($plot !== null and $plot->owner == $player->getName() or $player->hasPermission("myplot.admin.build.plot")){
+            $blockData = $item->getCustomBlockData() ?? new CompoundTag();
+            $skin = $blockData->getCompoundTag("Skin");
+            if($skin !== null){
+                $this->spawnPlayerHead($skin, $event->getBlock(), self::getYaw($event->getBlock(), $player));
+                if(!$player->isCreative()){
+                    $item->pop();
+                    $player->getInventory()->setItemInHand($item);
+                }
+                $event->setCancelled(true);
+            }
         }
-        
-        if(!$player->hasPermission("playerhead.attack")){
-            return;
+		}
+	}
+
+    /**
+     * @param CompoundTag|Skin $skin
+     * @param Position $pos
+     * @param float|null $yaw
+     * @param float|null $pitch
+     * @return HeadEntity
+     */
+    public static function spawnPlayerHead($skin, Position $pos, float $yaw = null, float $pitch = null) : HeadEntity{
+		$skinTag = $skin instanceof Skin ? self::skinToTag($skin) : $skin;
+		$nbt = HeadEntity::createBaseNBT($pos->add(0.5, 0, 0.5), null, $yaw ?? 0.0, $pitch ?? 0.0);
+        $nbt->setTag($skinTag);
+        $head = new HeadEntity($pos->level, $nbt);
+        $head->spawnToAll();
+
+        return $head;
+    }
+
+    public static function getYaw(Vector3 $pos, Vector3 $target) : float{
+        $xDist = $target->x - $pos->x;
+        $zDist = $target->z - $pos->z;
+        $yaw = atan2($zDist, $xDist) / M_PI * 180 - 90;
+        if($yaw < 0){
+            $yaw += 360.0;
         }
+
+        foreach([45, 90, 135, 180, 225, 270, 315, 360] as $direction){
+            $min = min($yaw, $direction);
+            if($min == $yaw){
+                return $direction;
+            }
+        }
+
+        return $yaw;
     }
 
-    parent::attack($source);
-}
+    /**
+     * @param CompoundTag|Skin $skin
+     * @return Item
+     */
+    public static function getPlayerHeadItem($skin) : Item{
+        if($skin instanceof Skin){
+            $skinTag = self::skinToTag($skin);
+        }else{
+            $skinTag = $skin;
+        }
 
-    public function getDrops() : array{
-        return [PlayerHead::getPlayerHeadItem($this->getSkin())];
+        $name = $skinTag->getString("Name", "Player");
+        $item = ItemFactory::get(Item::MOB_HEAD, 3);
+        $tag = $item->getCustomBlockData() ?? new CompoundTag();
+        $tag->setTag($skinTag);
+        $item->setCustomBlockData($tag);
+        $item->setCustomName("§r§6$name's Head");
+        return $item;
     }
 
+    public static function skinToTag(Skin $skin) : CompoundTag{
+        return new CompoundTag("Skin", [
+            new StringTag("Name", $skin->getSkinId()),
+            new ByteArrayTag("Data", $skin->getSkinData())
+        ]);
+    }
+
+    public static function tagToSkin(CompoundTag $tag) : Skin{
+        return new Skin(
+            $tag->getString("Name"),
+            $tag->getByteArray("Data")
+        );
+    }
 }
