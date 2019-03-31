@@ -52,11 +52,22 @@ class HeadEntity extends Human{
         return $this->uuid;
     }
 
-    public function attack(EntityDamageEvent $source) : void{
-        /** @var Player $player */ // #blameJetbrains
-		$attack = ($source instanceof EntityDamageByEntityEvent and ($player = $source->getDamager()) instanceof Player) ? $player->hasPermission("playerhead.attack") : true;
-        if($attack) parent::attack($source);
+  public function attack(EntityDamageEvent $source) : void{
+    if($source instanceof EntityDamageByEntityEvent and $source->getDamager() instanceof Player){
+        $player = $source->getDamager();
+        $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this);
+        
+        if($plot !== null and $plot->owner !== $player->getName() or $player->hasPermission("myplot.admin.build.plot")) {
+            return;
+        }
+        
+        if(!$player->hasPermission("playerhead.attack")){
+            return;
+        }
     }
+
+    parent::attack($source);
+}
 
     public function getDrops() : array{
         return [PlayerHead::getPlayerHeadItem($this->getSkin())];
