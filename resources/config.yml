@@ -6,9 +6,11 @@ item_name: "{player}'s head"
 
 # Message on succes
 # {player} is the player with the head in his skin
+# ISN'T WORKING NOW
 succes: ""
 
 # The message wich appears when you already got a head in the given time
 # {until} is the date on wich the player can do /head again
+# ISN'T WORKING NOW
 already_claimed: "§cYou already got the head of a player. You have to wait until {until}"
 ...
