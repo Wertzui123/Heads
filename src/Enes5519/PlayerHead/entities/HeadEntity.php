@@ -55,10 +55,10 @@ class HeadEntity extends Human{
   public function attack(EntityDamageEvent $source) : void{
     if($source instanceof EntityDamageByEntityEvent and $source->getDamager() instanceof Player){
         $player = $source->getDamager();
-        $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this);
-     
+        $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this); 
+	 
 if($player->hasPermission("playerhead.attack")){	 
- if($plot !== null and $plot->owner == $player->getName() or $player->hasPermission("myplot.admin.build.plot")){
+ if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($player->getName(),$plot->helpers)) || $player->hasPermission("myplot.admin.build.plot")){
 
     parent::attack($source);
 	
