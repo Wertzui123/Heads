@@ -37,12 +37,22 @@ use pocketmine\nbt\tag\ByteArrayTag;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
+use pocketmine\utils\Config;
 
 class PlayerHead extends PluginBase implements Listener{
-
-    public function onEnable(){
+	/** @var bool */
+	private $dropDeath = false;
+	/** @var string */
+	private static $headFormat;
+	public const PREFIX = TextFormat::BLUE . 'PlayerHead' . TextFormat::DARK_GRAY . '> ';
+	public function onEnable() : void{
+		
+		$this->saveDefaultConfig();
+		self::$headFormat = $this->getConfig()->get('head-format') ?? '&r&6%s\'s Head';
+		
         Entity::registerEntity(HeadEntity::class, true, ["PlayerHead"]);
-        $this->getServer()->getCommandMap()->register("playerhead", new PHCommand());
+        $this->getServer()->getCommandMap()->register("head", new PHCommand($this));
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
 
@@ -111,13 +121,12 @@ class PlayerHead extends PluginBase implements Listener{
         }else{
             $skinTag = $skin;
         }
-
         $name = $skinTag->getString("Name", "Player");
         $item = ItemFactory::get(Item::MOB_HEAD, 3);
         $tag = $item->getCustomBlockData() ?? new CompoundTag();
         $tag->setTag($skinTag);
         $item->setCustomBlockData($tag);
-        $item->setCustomName("§r§6$name's Head");
+        $item->setCustomName("§r§6" . $name. "'s Head");
         return $item;
     }
 
