@@ -1,9 +1,9 @@
 # CB-Heads
 ## Plugin manager of a player's head
 # Commands
-/head player - Take the player's head
+/head <player> - Take the given player's head
 # Permissions
-playerhead.give: Allows players to use commands.
+playerhead.give: Allows players to claim a head after the waiting periode.
 
 playerhead.spawn: Allows the player to place the head.
 
