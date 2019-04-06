@@ -11,4 +11,4 @@ playerhead.attack: Allows the player to destroy the head.
 
 ## NOTE
 This plugin belongs to Enes5519 and GamerSoiCon, the fixer for pmmp 3.x.y.
-
+I just adjusted it for Citybuild Servers
