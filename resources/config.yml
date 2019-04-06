@@ -1,16 +1,34 @@
 ---
-# The name of the item
-# {player} is the player with the head in his skin
-# ISN'T WORKING NOW
-item_name: "{player}'s head"
+# This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
+# You also musn't change the author or the license.
+# © 2019 Wertzui123
+#
+# This is the message wich appears when you don't have the permission to use /reward
+no_permission: "§cYou don't have the permission to use /head"
 
-# Message on succes
-# {player} is the player with the head in his skin
-# ISN'T WORKING NOW
-succes: ""
+# The message when you try to get the head of an offline player
+player_is_not_online: "§cThe given player is not online!"
 
-# The message wich appears when you already got a head in the given time
-# {until} is the date on wich the player can do /head again
-# ISN'T WORKING NOW
-already_claimed: "§cYou already got the head of a player. You have to wait until {until}"
+# This is the message wich appears when you try to do "/reward" trough the console
+run_ingame: "§cPlease run this command in-game"
+
+# This is the message wich appears when you have to wait until you can claim you're reward again
+already_got_head: "§cYou already got a head today! You have to wait until §e{until}§c!"
+
+# This is the message wich appears when you got you're reward
+got_head_succes: "§aYou succesfully got the head of {got}!"
+
+# The time format
+# d = day
+# m = month
+# Y = Year
+# H = Hour
+# i = minute
+time_format: "m.d.Y H:i"
+
+# The time how long the players have to wait befor claiming their rewards again
+# Please use minutes
+# Example: "2222 minutes"
+# 1440 minutes is one day
+wait_time: "1440 minutes"
 ...
