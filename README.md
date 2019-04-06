@@ -1,5 +1,7 @@
 # CB-Heads
 ## Plugin manager of a player's head
+The .phar can be found on <a href="https://poggit.pmmp.io/ci/Wertzui123/CB-Heads/CB-Heads/">poggit.</a>
+This plugin let you get the head of a player via a command as an item.
 # Commands
 /head player - Take the given player's head
 # Permissions
