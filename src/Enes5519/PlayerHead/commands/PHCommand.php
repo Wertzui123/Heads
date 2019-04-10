@@ -1,6 +1,8 @@
 <?php
 
 /*
+ * Forked from:
+ *
  *  PlayerHead - a Altay and PocketMine-MP plugin to add player head on server
  *  Copyright (C) 2018 Enes Yıldırım
  *
@@ -17,6 +19,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * Copyright (C) 2019 Wertzui123
  */
 
 declare(strict_types=1);
@@ -44,8 +47,13 @@ use pocketmine\event\Listeners;
 class PHCommand extends Command{
 
 public function __construct(PlayerHead $plugin) {
-		parent::__construct("head", "Give's you the head of a player", "/head <player>", ["ph"]);
-		$this->setPermission("playerhead.give");
+	    $config = new Config($plugin->getDataFolder() . "config.yml", Config::YAML);
+        $desc = $config->get("command_description");
+		$usage = $config->get("command_usage");
+		$command = $config->get("head_command");
+		$alias = $config->get("command_alias");
+		parent::__construct("$command", "$desc", "$usage", $alias);
+		$this->setPermission("cb-heads.gethead");
 		$this->plugin = $plugin;
 	}
 
@@ -101,9 +109,9 @@ return $ph;
 		$name = $player->getName();
 		if($player instanceof Player){
 			
-			if($sender->hasPermission("playerhead.give")){
+			if($sender->hasPermission("cb-heads.gethead")){
 			
-			if($now >= $until or $sender->hasPermission("playerhead.give.bypass")){
+			if($now >= $until or $sender->hasPermission("cb-heads.gethead.bypass")){
 				
 			/*$headcommand = str_replace("{player}", $name, $headcommand);
 		    $this->plugin->getServer()->dispatchCommand(new ConsoleCommandSender(), $headcommand);*/
