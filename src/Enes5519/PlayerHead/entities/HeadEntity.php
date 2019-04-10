@@ -1,6 +1,8 @@
 <?php
 
 /*
+ * Forked from:
+ *
  *  PlayerHead - a Altay and PocketMine-MP plugin to add player head on server
  *  Copyright (C) 2018 Enes Yıldırım
  *
@@ -17,6 +19,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * Copyright (C) 2019 Wertzui123
  */
 
 declare(strict_types=1);
@@ -31,6 +34,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\Player;
 use pocketmine\utils\UUID;
+use pocketmine\utils\TextFormat;
 
 class HeadEntity extends Human{
 
@@ -57,8 +61,8 @@ class HeadEntity extends Human{
         $player = $source->getDamager();
         $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this); 
 	 
-if($player->hasPermission("playerhead.attack")){	 
- if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($player->getName(),$plot->helpers)) || $player->hasPermission("myplot.admin.build.plot")){
+if($player->hasPermission("cb-heads.kill")){	 
+ if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($player->getName() or "*",$plot->helpers)) || $player->hasPermission("myplot.admin.build")){
 
     parent::attack($source);
 	
