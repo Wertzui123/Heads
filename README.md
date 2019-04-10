@@ -5,13 +5,15 @@ This plugin let you get the head of a player via a command as an item.
 # Commands
 /head player - Take the given player's head
 # Permissions
-playerhead.give: Allows players to claim a head after the waiting periode. **Default: op**
+cb-heads.gethead: Allows players to claim a head after the waiting periode. **Default: op**
 
-playerhead.give.bypass: Allows you to claim heads all the time. You don't have to wait! **Default: op**
+cb-heads.gethead.bypass: Allows you to claim heads all the time. You don't have to wait! **Default: op**
 
-playerhead.spawn: Allows the player to place the head on his plot/on a plot on wich he is a helper. **Default: true**
+cb-heads.spawn: Allows the player to place the head on his plot/on a plot on wich he is a helper. **Default: true**
 
-playerhead.attack: Allows the player to destroy the head on his plot/on a plot on wich he is a helper. **Default: true**
+cb-heads.kill: Allows the player to destroy the head on his plot/on a plot on wich he is a helper. **Default: true**
+
+myplot.admin.build.plot = permission to set heads everywhere (Implemented by myplot, but I don't think that everyone knows that). **Default: op**
 
 # Features
   **This plugin has some nice features for CB servers**
