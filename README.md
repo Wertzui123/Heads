@@ -37,4 +37,6 @@ The plugin was origanily written by @Enes5519 and fixed for pmmp 3.x.y by @Gamer
 <br>
   <br>The icon was designed by <code>Icon is comming soon</code>
  <br>
+ <br>Thanks to @SalmonDE and @tim03we for helping me
+ <br>
   <br>You can help me too, if you report bugs and make suggestions
