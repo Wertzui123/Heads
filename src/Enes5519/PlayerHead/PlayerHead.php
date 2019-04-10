@@ -1,6 +1,8 @@
 <?php
 
 /*
+ * Forked from:
+ *
  *  PlayerHead - a Altay and PocketMine-MP plugin to add player head on server
  *  Copyright (C) 2018 Enes Yıldırım
  *
@@ -17,6 +19,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * Copyright (C) 2019 Wertzui123
  */
 
 declare(strict_types=1);
@@ -41,16 +44,26 @@ use pocketmine\utils\TextFormat;
 use pocketmine\utils\Config;
 
 class PlayerHead extends PluginBase implements Listener{
-	/** @var bool */
-	private $dropDeath = false;
-	/** @var string */
-	private static $headFormat;
-	public const PREFIX = TextFormat::BLUE . 'PlayerHead' . TextFormat::DARK_GRAY . '> ';
+	
+	private static $format;
+	
+	public function configUpdater(): void {
+		
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $headformat = $config->get("head_format");
+        $cversion = $config->get("config_version");
+		
+		if($cversion !== "2.0"){
+			rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config-" . $cversion . ".yml");
+			$this->saveResource("config.yml");
+            $this->getLogger()->notice("The config version you're using isn't the newst, wich is \"2.0\", \nso I created a new config for you and renamed the old config to config-" . $cversion.  ".yml");
+		}
+	}
+
 	public function onEnable() : void{
 		
 		$this->saveDefaultConfig();
-		self::$headFormat = $this->getConfig()->get('head-format') ?? '&r&6%s\'s Head';
-		
+		self::$format = new Config($this->getDataFolder() . "config.yml");		
         Entity::registerEntity(HeadEntity::class, true, ["PlayerHead"]);
         $this->getServer()->getCommandMap()->register("head", new PHCommand($this));
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -60,8 +73,8 @@ class PlayerHead extends PluginBase implements Listener{
         $player = $event->getPlayer();
 		$position  = $player->getPosition();
 	$plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($position);
-        if($player->hasPermission("playerhead.spawn") and ($item = $player->getInventory()->getItemInHand())->getId() == Item::MOB_HEAD){
-		if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($player->getName(),$plot->helpers)) || $player->hasPermission("myplot.admin.build.plot")){
+        if($player->hasPermission("cb-heads.spawn") and ($item = $player->getInventory()->getItemInHand())->getId() == Item::MOB_HEAD){
+		if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($player->getName() or "*",$plot->helpers)) || $player->hasPermission("myplot.admin.build")){
             $blockData = $item->getCustomBlockData() ?? new CompoundTag();
             $skin = $blockData->getCompoundTag("Skin");
             if($skin !== null){
@@ -116,17 +129,24 @@ class PlayerHead extends PluginBase implements Listener{
      * @return Item
      */
     public static function getPlayerHeadItem($skin) : Item{
+		
         if($skin instanceof Skin){
             $skinTag = self::skinToTag($skin);
         }else{
             $skinTag = $skin;
         }
         $name = $skinTag->getString("Name", "Player");
+		
+		$config = self::$format;
+        $headformat = $config->get("head_format");
+        $cversion = $config->get("config_version");
+		
         $item = ItemFactory::get(Item::MOB_HEAD, 3);
         $tag = $item->getCustomBlockData() ?? new CompoundTag();
         $tag->setTag($skinTag);
         $item->setCustomBlockData($tag);
-        $item->setCustomName("§r§6" . $name. "'s Head");
+		$headformat = str_replace("{name}", $name, $headformat);
+        $item->setCustomName(/*"§r§6" . $name. "'s Head"*/$headformat);
         return $item;
     }
 
