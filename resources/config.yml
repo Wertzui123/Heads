@@ -3,6 +3,36 @@
 # You also musn't change the author or the license.
 # © 2019 Wertzui123
 #
+
+# Config Version
+# Only Change this if you know what you're doing!
+config_version: "2.0"
+
+#
+#
+# COMMAND
+#
+#
+
+# Wich command should be /head? I like /head (:
+head_command: "head"
+
+# Command description
+command_description: "Give's you the head of a player"
+
+# The usage for /head
+command_usage: "/head <player>"
+
+# The alias for /head.
+# For example command_alias: ["heads", "gethead"] or command_alias: ["kopf"]
+command_alias: ["playerhead"]
+
+#
+#
+# MESSAGES
+#
+#
+
 # This is the message wich appears when you don't have the permission to use /reward
 no_permission: "§cYou don't have the permission to use /head"
 
@@ -17,6 +47,16 @@ already_got_head: "§cYou already got a head today! You have to wait until §e{u
 
 # This is the message wich appears when you got you're reward
 got_head_succes: "§aYou succesfully got the head of {got}!"
+
+#
+#
+#OTHER DATA
+#
+#
+
+# Head format
+# {name} is the player from wich the head was "stolen"
+head_format: "§r§6{name}'s Head"
 
 # The time format
 # d = day
