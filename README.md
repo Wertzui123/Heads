@@ -13,6 +13,10 @@ cb-heads.spawn: Allows the player to place the head on his plot/on a plot on wic
 
 cb-heads.kill: Allows the player to destroy the head on his plot/on a plot on wich he is a helper. **Default: true**
 
+cb-heads.blacklist: Allows you to claim heads of all players on the blacklist. **Default: op**
+
+cb-heads.blacklist.playername: Allows you to claim heads of a certain player. **Default: op**
+
 myplot.admin.build.plot = permission to set heads everywhere (Implemented by myplot, but I don't think that everyone knows that). **Default: op**
 
 # Features
@@ -23,7 +27,10 @@ myplot.admin.build.plot = permission to set heads everywhere (Implemented by myp
   <br>-Heads can be only placed on plots on wich the player is the owner or a helper
   <br>-Heads can be only killed on plots on wich the player is the owner or a helper
   <br>-Without the bypass permission, you have to wait until you can get a head again
+  <br>-Command is editable throught the config
+  <br>-Blacklist
   <br>-Fast and free Support
+  <br>-And so on...
   <br>
   
 # Ideas and Questions
