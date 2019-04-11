@@ -59,6 +59,7 @@ public function __construct(PlayerHead $plugin) {
 
 	public function onEnable() : void{ 
 	    $this->saveResource("config.yml");
+		$this->saveResource("blacklist.yml");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 
@@ -82,9 +83,12 @@ return $ph;
 		$player = $sender->getServer()->getPlayer(implode(" ", $args));
 		$cfg = new Config($this->plugin->getDataFolder()/* . "players/"*/ . $name . ".yml", Config::YAML);
 		$config = new Config($this->plugin->getDataFolder() . "config.yml", Config::YAML);
+		$blist = new Config($this->plugin->getDataFolder() . "blacklist.yml", Config::YAML);
 		$until = $cfg->get("until");
 		$today = new \DateTime("now");
 		$nopermission = $config->get("no_permission");
+		$onblacklist = $config->get("on_blacklist");
+		$blacklist = $blist->get("blacklisted_players");
 		//$usage = $config->get("usage");
 		$alreadygothead = $config->get("already_got_head");
 		$alreadygothead = str_replace("{until}", $until, $alreadygothead);
@@ -107,7 +111,10 @@ return $ph;
 
 		if($player == !null){
 		$name = $player->getName();
+		$onblacklist = str_replace("{player}", $name, $onblacklist);
 		if($player instanceof Player){
+			
+			if(!in_array($name, $blacklist) or $sender->hasPermission("cb-heads.blacklist.$name") or $sender->hasPermission("cb-heads.blacklist")){
 			
 			if($sender->hasPermission("cb-heads.gethead")){
 			
@@ -126,6 +133,9 @@ return $ph;
 			}
 			}else{
 				$sender->sendMessage($nopermission);
+			}
+			}else{
+				$sender->sendMessage($onblacklist);
 			}
 		}
 		 }else{
