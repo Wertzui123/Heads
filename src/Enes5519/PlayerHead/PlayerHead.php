@@ -46,19 +46,6 @@ use pocketmine\utils\Config;
 class PlayerHead extends PluginBase implements Listener{
 	
 	private static $format;
-	
-	public function configUpdater(): void {
-		
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $headformat = $config->get("head_format");
-        $cversion = $config->get("config_version");
-		
-		if($cversion !== "2.0"){
-			rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config-" . $cversion . ".yml");
-			$this->saveResource("config.yml");
-            $this->getLogger()->notice("The config version you're using isn't the newst, wich is \"2.0\",so I created a new config for you and renamed the old config to config-" . $cversion.  ".yml");
-		}
-	}
 
 	public function onEnable() : void{
 		
@@ -73,6 +60,7 @@ class PlayerHead extends PluginBase implements Listener{
 		}
 		
 		$this->saveDefaultConfig();
+		$this->saveResource("blacklist.yml");
 		self::$format = new Config($this->getDataFolder() . "config.yml");		
         Entity::registerEntity(HeadEntity::class, true, ["PlayerHead"]);
         $this->getServer()->getCommandMap()->register("head", new PHCommand($this));
