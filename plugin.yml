@@ -1,18 +1,23 @@
 name: CB-Heads
-version: 2.0
+version: 1.0
 main: Enes5519\PlayerHead\PlayerHead
 api: [3.0.0]
 author: Enes5519
 fixer: WolfTubeTM
 forker: Wertzui123
+depend: [MyPlot]
 
 permissions:
   playerhead:
     default: op
     children:
-      playerhead.give:
+      cb-heads.gethead:
         default: op
-      playerhead.spawn:
+      cb-heads.gethead.bypass:
         default: op
-      playerhead.attack:
+      cb-heads.blacklist:
         default: op
+      cb-heads.spawn:
+        default: true
+      cb-heads.kill:
+        default: true
