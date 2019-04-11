@@ -6,7 +6,7 @@
 
 # Config Version
 # Only Change this if you know what you're doing!
-config_version: "2.0"
+config_version: "2.1"
 
 #
 #
@@ -23,7 +23,7 @@ command_description: "Give's you the head of a player"
 # The usage for /head
 command_usage: "/head <player>"
 
-# The alias for /head.
+# The alias for /head
 # For example command_alias: ["heads", "gethead"] or command_alias: ["kopf"]
 command_alias: ["playerhead"]
 
@@ -33,19 +33,23 @@ command_alias: ["playerhead"]
 #
 #
 
-# This is the message wich appears when you don't have the permission to use /reward
+# This is the message wich appears when you don't have the permission to use /head
 no_permission: "§cYou don't have the permission to use /head"
 
 # The message when you try to get the head of an offline player
 player_is_not_online: "§cThe given player is not online!"
 
-# This is the message wich appears when you try to do "/reward" trough the console
+# When a player is on the blacklist, this message will appears when the command sender has not the permission to get the head
+# {player} is the player o´n the blacklist
+on_blacklist: "§cYou can't claim the head of this player, because he is on the blacklist and you don't have the permission to get his head!"
+
+# This is the message wich appears when you try to do "/head" trough the console
 run_ingame: "§cPlease run this command in-game"
 
-# This is the message wich appears when you have to wait until you can claim you're reward again
+# This is the message wich appears when you have to wait until you can get a head again
 already_got_head: "§cYou already got a head today! You have to wait until §e{until}§c!"
 
-# This is the message wich appears when you got you're reward
+# This is the message wich appears when you succesfully got a head
 got_head_succes: "§aYou succesfully got the head of {got}!"
 
 #
@@ -66,7 +70,7 @@ head_format: "§r§6{name}'s Head"
 # i = minute
 time_format: "m.d.Y H:i"
 
-# The time how long the players have to wait befor claiming their rewards again
+# The time how long the players have to wait befor getting the head of a player again
 # Please use minutes
 # Example: "2222 minutes"
 # 1440 minutes is one day
