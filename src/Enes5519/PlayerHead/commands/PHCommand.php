@@ -96,6 +96,7 @@ return $ph;
 		//$headcommand = $config->get("command_wich_will_be_executed");
 		$timeformat = $config->get("time_format");
 		$waittime = $config->get("wait_time");
+		$today = new \DateTime("now");
 		$now = $today->format($timeformat);
 		$until2 = date ($timeformat, strtotime ($now ."+" . $waittime));
 		$runingame = $config->get("run_ingame");
