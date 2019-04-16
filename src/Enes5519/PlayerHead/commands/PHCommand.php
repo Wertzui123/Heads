@@ -85,7 +85,6 @@ return $ph;
 		$config = new Config($this->plugin->getDataFolder() . "config.yml", Config::YAML);
 		$blist = new Config($this->plugin->getDataFolder() . "blacklist.yml", Config::YAML);
 		$until = $cfg->get("until");
-		$today = new \DateTime("now");
 		$nopermission = $config->get("no_permission");
 		$onblacklist = $config->get("on_blacklist");
 		$blacklist = $blist->get("blacklisted_players");
@@ -98,7 +97,8 @@ return $ph;
 		$waittime = $config->get("wait_time");
 		$today = new \DateTime("now");
 		$now = $today->format($timeformat);
-		$until2 = date ($timeformat, strtotime ($now ."+" . $waittime));
+		$until2 = strtotime ($now . "+" . $waittime);
+		$until2 = $until2->format($timeformat);
 		$runingame = $config->get("run_ingame");
 		$notonline = $config->get("player_is_not_online");
 		
