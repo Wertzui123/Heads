@@ -1,11 +1,11 @@
 name: CB-Heads
-version: 2.2
+version: 2.1
 main: Enes5519\PlayerHead\PlayerHead
 api: [3.0.0]
 author: Enes5519
 fixer: WolfTubeTM
 forker: Wertzui123
-depend: [MyPlot]
+# depend: [MyPlot]
 
 permissions:
   playerhead:
