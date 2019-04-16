@@ -40,7 +40,7 @@ no_permission: "§cYou don't have the permission to use /head"
 player_is_not_online: "§cThe given player is not online!"
 
 # When a player is on the blacklist, this message will appears when the command sender has not the permission to get the head
-# {player} is the player o´n the blacklist
+# {player} is the player on the blacklist
 on_blacklist: "§cYou can't claim the head of this player, because he is on the blacklist and you don't have the permission to get his head!"
 
 # This is the message wich appears when you try to do "/head" trough the console
