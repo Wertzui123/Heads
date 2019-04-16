@@ -5,7 +5,7 @@ api: [3.0.0]
 author: Enes5519
 fixer: WolfTubeTM
 forker: Wertzui123
-# depend: [MyPlot]
+depend: [MyPlot]
 
 permissions:
   playerhead:
