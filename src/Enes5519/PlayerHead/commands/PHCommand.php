@@ -97,7 +97,7 @@ return $ph;
 		$timeformat = $config->get("time_format");
 		$waittime = $config->get("wait_time");
 		$now = $today->format($timeformat);
-		$boleen = strtotime("10 minutes");
+		$boleen = strtotime("+$waittime");
 		$until2 = date ($timeformat, /*Boleen*/$boleen);
 		$runingame = $config->get("run_ingame");
 		$notonline = $config->get("player_is_not_online");
