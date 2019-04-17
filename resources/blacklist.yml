@@ -5,7 +5,7 @@
 #
 
 #All players wich are on the blacklist:
-#1. Example: blacklisted_players: ["Wertzui123456, "jasonwyn10"]
+#1. Example: blacklisted_players: ["Wertzui123456, "jasonwynn10"]
 #2. Example: blacklisted_players: ["player123"]
 blacklisted_players: ["Wertzui123456"]
 ...
