@@ -27,8 +27,11 @@ declare(strict_types=1);
 namespace Enes5519\PlayerHead\entities;
 
 use Enes5519\PlayerHead\PlayerHead;
+use pocketmine\block\BlockFactory;
+use pocketmine\block\BlockIds;
 use pocketmine\entity\Human;
 use pocketmine\entity\Skin;
+use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\nbt\tag\CompoundTag;
@@ -64,14 +67,18 @@ class HeadEntity extends Human
     {
         if ($source instanceof EntityDamageByEntityEvent and $source->getDamager() instanceof Player) {
             $player = $source->getDamager();
-            $pname = $player->getName();
-            $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this);
 
             if ($player->hasPermission("cb-heads.kill")) {
-                            if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($pname, $plot->helpers)) || ($plot !== null && in_array("*", $plot->helpers)) || $player->hasPermission("myplot.admin.build")){
+                $pos = $this->asPosition();
+                $pos->x = $pos->getFloorX();
+                $pos->y = $pos->getFloorY();
+                $pos->z = $pos->getFloorZ();
+                $block = BlockFactory::get(BlockIds::SKULL_BLOCK, 0, $pos);
 
+                ($event = new BlockBreakEvent($player, $block, $player->getInventory()->getItemInHand(), false, $this->getDrops()))->call();
+
+                if(!$event->isCancelled()){
                     parent::attack($source);
-
                 }
             }
         }
