@@ -65,7 +65,7 @@ class HeadEntity extends Human
 
     public function attack(EntityDamageEvent $source): void
     {
-        if ($source instanceof EntityDamageByEntityEvent and $source->getDamager() instanceof Player) {
+        if ($source instanceof EntityDamageByEntityEvent and $source->getDamager() instanceof Player and $source->getCause() === EntityDamageEvent::CAUSE_ENTITY_ATTACK) {
             $player = $source->getDamager();
 
             if ($player->hasPermission("cb-heads.kill")) {
