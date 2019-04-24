@@ -68,7 +68,7 @@ class HeadEntity extends Human
             $plot = $player->getServer()->getPluginManager()->getPlugin("MyPlot")->getPlotByPosition($this);
 
             if ($player->hasPermission("cb-heads.kill")) {
-                if (($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($pname/* or "*"*/, $plot->helpers)) || $player->hasPermission("myplot.admin.build")) {
+                            if(($plot !== null && $plot->owner == $player->getName()) || ($plot !== null && in_array($pname, $plot->helpers)) || ($plot !== null && in_array("*", $plot->helpers)) || $player->hasPermission("myplot.admin.build")){
 
                     parent::attack($source);
 
