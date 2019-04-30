@@ -17,8 +17,6 @@ cb-heads.blacklist: Allows you to claim heads of all players on the blacklist. *
 
 cb-heads.blacklist.playername: Allows you to claim heads of a certain player. **Default: op**
 
-myplot.admin.build.plot = permission to set heads everywhere (Implemented by myplot, but I don't think that everyone knows that). **Default: op**
-
 # Features
   **This plugin has some nice features for CB servers**
 <br>
