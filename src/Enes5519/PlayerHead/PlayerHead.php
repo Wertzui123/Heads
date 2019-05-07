@@ -44,25 +44,17 @@ use pocketmine\utils\Config;
 
 class PlayerHead extends PluginBase implements Listener
 {
-
-    private static $format;
-
+    public $configversion;
+    private static $config;
     public function onEnable(): void
     {
-
         $config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $headformat = $config->get("head_format");
-        $cversion = $config->get("config_version");
-
-        if ($cversion !== "2.2") {
-            rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config-" . $cversion . ".yml");
-            $this->saveResource("config.yml");
-            $this->getLogger()->notice("The config version you're using isn't the newst, wich is \"2.2\", \nso I created a new config for you and renamed the old config to config-" . $cversion . ".yml");
-        }
-
-        $this->saveDefaultConfig();
+        self::$config = $config;
+        $this->configversion = "2.4";
+        $this->ConfigUpdater();
         $this->saveResource("blacklist.yml");
-        self::$format = new Config($this->getDataFolder() . "config.yml");
+        $this->saveResource("players.yml");
+
         Entity::registerEntity(HeadEntity::class, true, ["PlayerHead"]);
         $this->getServer()->getCommandMap()->register("head", new PHCommand($this));
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -74,7 +66,7 @@ class PlayerHead extends PluginBase implements Listener
         $position = $player->getPosition();
 
         if ($player->hasPermission("cb-heads.spawn") and ($item = $player->getInventory()->getItemInHand())->getId() == Item::MOB_HEAD) {
-            if(!$event->isCancelled()){
+            if (!$event->isCancelled()) {
                 $blockData = $item->getCustomBlockData() ?? new CompoundTag();
                 $skin = $blockData->getCompoundTag("Skin");
                 if ($skin !== null) {
@@ -140,9 +132,8 @@ class PlayerHead extends PluginBase implements Listener
         }
         $name = $skinTag->getString("Name", "Player");
 
-        $config = self::$format;
-        $headformat = $config->get("head_format");
-        $cversion = $config->get("config_version");
+        $config = self::$config;
+        $headformat = $config->get("head_format") ?? "§r§6" . $name. "'s Head";
 
         $item = ItemFactory::get(Item::MOB_HEAD, 3);
         $tag = $item->getCustomBlockData() ?? new CompoundTag();
@@ -167,5 +158,34 @@ class PlayerHead extends PluginBase implements Listener
             $tag->getString("Name"),
             $tag->getByteArray("Data")
         );
+    }
+
+    public function ConfigArray()
+    {
+        $c = new Config($this->getDataFolder() . "config.yml");
+        $c = $c->getAll();
+        return $c;
+    }
+
+    public function Config()
+    {
+        $c = new Config($this->getDataFolder() . "config.yml");
+        return $c;
+    }
+
+    public function ConfigUpdater()
+    {
+        $c = $this->ConfigArray();
+        $cv = $c["config_version"] ?? 0;
+        if (file_exists($this->getDataFolder() . "config.yml")) {
+            if ($cv != $this->configversion) {
+                $this->getLogger()->info("§cYour Config isn't the latest. §6We renamed your old config to §bconfig-" . $cv . ".yml §6and created a new config.yml. §aHave fun!");
+                rename($this->getDataFolder() . "config.yml", "config-" . $cv . ".yml");
+                $this->saveResource("config.yml");
+            }
+        } else {
+            $this->saveResource("config.yml");
+
+        }
     }
 }
