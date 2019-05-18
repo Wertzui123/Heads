@@ -36,7 +36,7 @@ cb-heads.blacklist.playername: Allows you to claim heads of a certain player. **
 You have a question or an idea? Then send it in my <a herf="https://discord.gg/eGhZGtF">discord</a> or create an issue.
 
 # License
-This is the License of CB-Heads an PlayerHead
+This is the License of CB-Heads and PlayerHead
 <br>https://choosealicense.com/licenses/gpl-3.0/<br>
 <br><code>© 2019 Wertzui123</code>
 
