@@ -175,9 +175,9 @@ class PlayerHead extends PluginBase implements Listener
 
     public function ConfigUpdater()
     {
-        $c = $this->ConfigArray();
-        $cv = $c["config_version"] ?? 0;
         if (file_exists($this->getDataFolder() . "config.yml")) {
+                    $c = $this->ConfigArray();
+                    $cv = $c["config_version"] ?? 0;
             if ($cv != $this->configversion) {
                 $this->getLogger()->info("§cYour Config isn't the latest. §6We renamed your old config to §bconfig-" . $cv . ".yml §6and created a new config.yml. §aHave fun!");
                 rename($this->getDataFolder() . "config.yml", "config-" . $cv . ".yml");
