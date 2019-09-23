@@ -110,7 +110,7 @@ $cfg->save();
 			if($sender->hasPermission("cb-heads.gethead")) {
 
                 if ($now >= $until or $sender->hasPermission("cb-heads.gethead.bypass")) {
-                $cfg->set($name, $until2);
+                $cfg->set($sender->getName(), $until2);
                 $cfg->save();
                 $sender->getInventory()->addItem(PlayerHead::getPlayerHeadItem(new Skin($player->getName(), $player->getSkin()->getSkinData())));
                 $gotheadsucces = str_replace("{got}", $player->getName(), $gotheadsucces);
