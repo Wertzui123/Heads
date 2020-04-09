@@ -13,7 +13,7 @@ cb-heads.gethead: Allows players to claim a head after the waiting period. <br>D
 <br>cb-heads.blacklist.playername: Allows you to claim heads of a certain player. <br>Default: op
 
 # Features
-  <br>-Many settings can be edited through the config
+  -Many settings can be edited through the config
   <br>-Custom messages
   <br>-Heads can be only placed or killed where the player performing the action can build and break blocks
   <br>-Without the bypass permission, you have to wait until you can get a head again
