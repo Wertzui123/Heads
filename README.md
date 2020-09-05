@@ -1,7 +1,7 @@
 # CB-Heads
-The .phar can be found on <a href="https://poggit.pmmp.io/ci/Wertzui123/CB-Heads/CB-Heads/">poggit.</a>
-This plugin lets you get the head of a player via a command as an item.
-**Attention**: When you use "AntiInstaBreak" this plugin will not be working as it should!
+This plugin lets you get the head of a player using a command.
+<br>The .phar can be found on <a href="https://poggit.pmmp.io/ci/Wertzui123/CB-Heads/CB-Heads/">poggit.</a>
+<br>**Attention**: When you use "AntiInstaBreak" this plugin will work as it should!
 # Commands
 /head <player: player> - Take the given players head
 # Permissions
