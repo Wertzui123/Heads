@@ -1,37 +1,46 @@
 # CB-Heads
-This plugin lets you get the head of a player using a command.
-<br>The .phar can be found on <a href="https://poggit.pmmp.io/ci/Wertzui123/CB-Heads/CB-Heads/">poggit.</a>
-<br>**Attention**: If you use "AntiInstaBreak", this plugin will not work as it should!
-# Commands
-/head <player: player> - Take the given players head
-# Permissions
-cb-heads.gethead: Allows players to claim a head after the waiting period. <br>Default: op
-<br>cb-heads.gethead.bypass: Allows you to claim heads all the time. You don't have to wait! <br>Default: op
-<br>cb-heads.spawn: Allows the player to place the head on his plot/on a plot on wich he is a helper. <br>Default: true
-<br>cb-heads.kill: Allows the player to destroy the head on his plot/on a plot on wich he is a helper. <br>Default: true
-<br>cb-heads.blacklist: Allows you to claim heads of all players on the blacklist. <br>Default: op
-<br>cb-heads.blacklist.playername: Allows you to claim heads of a certain player. <br>Default: op
+<div align="center">
+<img src="icon.png" alt="CB-Heads icon" width=186 height=186>
+</div>
+<br>CB-Heads is a feature-rich plugin for getting and placing playerheads on PocketMine-MP servers.
+<br>The .phar can be found <a href="https://poggit.pmmp.io/ci/Wertzui123/CB-Heads/CB-Heads">on poggit</a>.
 
-# Features
-  -Many settings can be edited through the config
-  <br>-Custom messages
-  <br>-Heads can be only placed or killed where the player performing the action can build and break blocks
-  <br>-Without the bypass permission, you have to wait until you can get a head again
-  <br>-Players can be put on a blacklist (you cannot claim the head of those players)
-  
-# Ideas and Questions
-If you have any questions or want me to add a new feature, contact me on my <a herf="https://discord.gg/eGhZGtF">discord server</a> or <a href="https://github.com/Wertzui123/CB-Heads/issues/new">create an issue</a>.
+# Commands
+## /head
+Gives you the head of a player
+<br>Permission: cb-heads.command.head
+<br>Usage: /head <player: target>
+<br>Aliases: playerhead
+
+**All commands can be configured in the config file.**
+
+# Permissions
+## cb-heads.command.head:
+Permission for the /head command
+<br>Default permission state: op
+
+## cb-heads.bypass.waiting:
+Permission to bypass the head claim cooldown
+<br>Default permission state: op
+
+## cb-heads.bypass.blacklist:
+Permission to get heads from players on the blacklist
+<br>Default permission state: false
+
+## cb-heads.bypass.blacklist.playername:
+Permission to get heads from the given player even if they are on the blacklist
+<br>Default permission state: false
+
+## Cooldowns
+You can create multiple head claim cooldowns for different permissions in the config.
+<br>These permissions will then look like this: `cb-heads.waiting.group`
 
 # License
-CB-Heads is licensed under the GLP-3.0 license
-<br>https://choosealicense.com/licenses/gpl-3.0/<br>
-<br><code>© 2019 - 2020 Wertzui123</code>
+CB-Heads is licensed under the GNU General Public License v3.0.
+<br>Further information: https://choosealicense.com/licenses/gpl-3.0
+<br><code>© 2019 - 2021 Wertzui123</code>
 
 # Credits
-The plugin was originally written by @Enes5519 and fixed for PmmP 3.x.y by @GamerSoiCon. I forked it and added some new features.
-<br>
-  <br>The icon was designed by <code>Icon is comming soon</code>
- <br>
- <br>Thanks to @SalmonDE and @tim03we for helping me
- <br>
-  <br>You can help me too, if you report bugs and make suggestions
+This plugin is based on PlayerHead by Enes5519, which has been improved by wolfgamer2805.
+<br>CB-Heads only contains little of the original sourcecode though, and I (Wertzui123) have implemented most of the features.
+<br>The icon is composed of the skins "Steve" and "Alex" from Minecraft.

@@ -1,0 +1,11 @@
+---
+command:
+  head:
+    runIngame: "§cPlease run this command ingame!"
+    noPermission: "§cYou don't have the permission to use this command!"
+    passPlayer: "§cPlease pass a player!"
+    notOnline: "§cThis player is not online!"
+    onBlacklist: "§cYou can't use /head on a blacklisted player!"
+    wait: "§cYou still have to wait §e{days} days, {hours} hours, {minutes} minutes and {seconds} seconds §cuntil you can do this again."
+    success: "§aYou got the head of {player}!"
+...
