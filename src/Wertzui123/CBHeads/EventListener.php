@@ -22,7 +22,9 @@ class EventListener implements Listener
         $event->setCancelled();
         $this->plugin->spawnHead(($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin'), ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getString('Player'), $event->getBlock(), Main::getYaw($event->getBlock(), $event->getPlayer()));
         if (!$event->getPlayer()->isCreative()) {
-            $event->getPlayer()->getInventory()->setItemInHand($event->getPlayer()->getInventory()->getItemInHand()->pop());
+            $item = $event->getPlayer()->getInventory()->getItemInHand();
+            $item->pop();
+            $event->getPlayer()->getInventory()->setItemInHand($item);
         }
     }
 
