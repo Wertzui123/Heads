@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Wertzui123\CBHeads\commands;
 
+use pocketmine\command\PluginIdentifiableCommand;
+use pocketmine\plugin\Plugin;
 use Wertzui123\CBHeads\Main;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 
-class headCommand extends Command
+class headCommand extends Command implements PluginIdentifiableCommand
 {
 
     private $plugin;
@@ -53,6 +55,11 @@ class headCommand extends Command
         }
         $sender->getInventory()->addItem($this->plugin->getHeadItem($player->getSkin(), $player->getName()));
         $sender->sendMessage($this->plugin->getMessage('command.head.success', ['{player}' => $player->getName()]));
+    }
+
+    public function getPlugin(): Plugin
+    {
+        return $this->plugin;
     }
 
 }
