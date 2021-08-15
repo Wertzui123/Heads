@@ -3,7 +3,7 @@
 <img src="icon.png" alt="CB-Heads icon" width=186 height=186>
 </div>
 <br>CB-Heads is a feature-rich plugin for getting and placing playerheads on PocketMine-MP servers.
-<br>The .phar can be found <a href="https://poggit.pmmp.io/ci/Wertzui123/CB-Heads/CB-Heads">on poggit</a>.
+<br>The .phar can be found <a href="https://poggit.pmmp.io/p/CB-Heads">on poggit</a>.
 
 # Commands
 ## /head
