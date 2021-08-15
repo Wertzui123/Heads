@@ -3,8 +3,11 @@
 namespace Wertzui123\CBHeads;
 
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\Player;
 
 class EventListener implements Listener
 {
@@ -25,6 +28,20 @@ class EventListener implements Listener
             $item = $event->getPlayer()->getInventory()->getItemInHand();
             $item->pop();
             $event->getPlayer()->getInventory()->setItemInHand($item);
+        }
+    }
+
+    public function onDamage(PlayerDeathEvent $event)
+    {
+        if (!$this->plugin->getConfig()->get('drop_on_killed')) return;
+        if ($event->getPlayer()->getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+            /** @var EntityDamageByEntityEvent $lastDamage */
+            $lastDamage = $event->getPlayer()->getLastDamageCause();
+            if ($lastDamage->getDamager() instanceof Player) {
+                $drops = $event->getDrops();
+                $drops[] = $this->plugin->getHeadItem($event->getPlayer()->getSkin(), $event->getPlayer()->getName());
+                $event->setDrops($drops);
+            }
         }
     }
 

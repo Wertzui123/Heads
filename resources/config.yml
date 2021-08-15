@@ -11,6 +11,7 @@ command:
 
 # Other data
 head_format: "§r§6{name}'s Head"
+drop_on_killed: false # when enabled, players will drop their heads when killed by another player
 blacklist: []
 
 # The time how long the players have to wait before claiming a head again, in seconds
