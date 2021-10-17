@@ -33,11 +33,15 @@ class EventListener implements Listener
 
     public function onDamage(PlayerDeathEvent $event)
     {
-        if (!$this->plugin->getConfig()->get('drop_on_killed')) return;
         if ($event->getPlayer()->getLastDamageCause() instanceof EntityDamageByEntityEvent) {
             /** @var EntityDamageByEntityEvent $lastDamage */
             $lastDamage = $event->getPlayer()->getLastDamageCause();
             if ($lastDamage->getDamager() instanceof Player) {
+                if ($lastDamage->getDamager() === $event->getPlayer()) {
+                    if (!$this->plugin->getConfig()->get('drop_on_suicide')) return;
+                } else {
+                    if (!$this->plugin->getConfig()->get('drop_on_killed')) return;
+                }
                 $drops = $event->getDrops();
                 $drops[] = $this->plugin->getHeadItem($event->getPlayer()->getSkin(), $event->getPlayer()->getName());
                 $event->setDrops($drops);

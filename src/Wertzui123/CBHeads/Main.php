@@ -22,7 +22,7 @@ use pocketmine\plugin\PluginBase;
 class Main extends PluginBase
 {
 
-    const CONFIG_VERSION = 3.0;
+    const CONFIG_VERSION = 3.1;
 
     /** @var Main */
     public static $instance;
