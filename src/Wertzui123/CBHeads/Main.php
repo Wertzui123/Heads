@@ -39,7 +39,7 @@ class Main extends PluginBase
         $this->configUpdater();
         $this->playersFile = new Config($this->getDataFolder() . 'players.json', Config::JSON);
         $this->stringsFile = new Config($this->getDataFolder() . 'strings.yml', Config::YAML);
-        Entity::registerEntity(Head::class, true);
+        Entity::registerEntity(Head::class, true, ['HeadEntity', 'PlayerHead']);
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getCommandMap()->register('CB-Heads', new headCommand($this));
     }
