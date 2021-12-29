@@ -1,5 +1,5 @@
 name: CB-Heads
-version: "3.1"
+version: "3.2"
 main: Wertzui123\CBHeads\Main
 api: [3.0.0]
 author: Wertzui123
