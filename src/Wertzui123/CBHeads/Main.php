@@ -4,25 +4,28 @@ declare(strict_types=1);
 
 namespace Wertzui123\CBHeads;
 
-use pocketmine\Player;
+use pocketmine\entity\EntityDataHelper;
+use pocketmine\entity\EntityFactory;
+use pocketmine\entity\Human;
+use pocketmine\entity\Location;
+use pocketmine\item\VanillaItems;
+use pocketmine\player\Player;
 use pocketmine\utils\Config;
+use pocketmine\world\World;
 use Wertzui123\CBHeads\commands\headCommand;
 use Wertzui123\CBHeads\entities\Head;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Skin;
 use pocketmine\item\Item;
-use pocketmine\item\ItemFactory;
-use pocketmine\level\Position;
+use pocketmine\world\Position;
 use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\ByteArrayTag;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\StringTag;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase
 {
 
-    const CONFIG_VERSION = 3.1;
+    const CONFIG_VERSION = 4.0;
 
     /** @var Main */
     public static $instance;
@@ -39,7 +42,9 @@ class Main extends PluginBase
         $this->configUpdater();
         $this->playersFile = new Config($this->getDataFolder() . 'players.json', Config::JSON);
         $this->stringsFile = new Config($this->getDataFolder() . 'strings.yml', Config::YAML);
-        Entity::registerEntity(Head::class, true, ['HeadEntity', 'PlayerHead']);
+        EntityFactory::getInstance()->register(Head::class, function (World $world, CompoundTag $nbt): Entity {
+            return new Head(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
+        }, ['Head', 'HeadEntity', 'PlayerHead']);
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getCommandMap()->register('CB-Heads', new headCommand($this));
     }
@@ -101,11 +106,10 @@ class Main extends PluginBase
      */
     public static function spawnHead($skin, $name, Position $pos, $yaw = null, $pitch = null): Head
     {
-        $skinTag = $skin instanceof Skin ? self::skinToTag($skin) : $skin;
-        $nbt = Head::createBaseNBT($pos->add(0.5, 0, 0.5), null, $yaw ?? 0.0, $pitch ?? 0.0);
-        $nbt->setTag($skinTag);
+        if ($skin instanceof CompoundTag) $skin = self::tagToSkin($skin);
+        $nbt = new CompoundTag();
         $nbt->setString('Player', $name);
-        $head = new Head($pos->level, $nbt);
+        $head = new Head(Location::fromObject($pos->add(0.5, 0, 0.5), $pos->getWorld(), $yaw ?? 0, $pitch ?? 0), $skin, $nbt);
         $head->spawnToAll();
         return $head;
     }
@@ -139,9 +143,9 @@ class Main extends PluginBase
     public function getHeadItem($skin, $name = null): Item
     {
         $skin = $skin instanceof Skin ? self::skinToTag($skin) : $skin;
-        $item = ItemFactory::get(Item::MOB_HEAD, 3);
+        $item = VanillaItems::PLAYER_HEAD();
         $tag = $item->getCustomBlockData() ?? new CompoundTag();
-        $tag->setTag($skin);
+        $tag->setTag('Skin', $skin);
         $tag->setString('Player', $name);
         $item->setCustomBlockData($tag);
         $item->setCustomName(str_replace('{name}', $name ?? $skin->getString('Name', 'Player'), $this->getConfig()->get('head_format')));
@@ -155,10 +159,7 @@ class Main extends PluginBase
      */
     public static function skinToTag(Skin $skin): CompoundTag
     {
-        return new CompoundTag('Skin', [
-            new StringTag('Name', $skin->getSkinId()),
-            new ByteArrayTag('Data', $skin->getSkinData())
-        ]);
+        return (new CompoundTag())->setString('Name', $skin->getSkinId())->setByteArray('Data', $skin->getSkinData());
     }
 
     /**
@@ -207,7 +208,7 @@ class Main extends PluginBase
         return str_replace(['{days}', '{hours}', '{minutes}', '{seconds}'], [$days, $hours, $minutes, $seconds], $message);
     }
 
-    public function onDisable()
+    public function onDisable(): void
     {
         $this->playersFile->save();
     }

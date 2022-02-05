@@ -6,30 +6,19 @@
 <br>The .phar can be found <a href="https://poggit.pmmp.io/p/CB-Heads">on poggit</a>.
 
 # Commands
-## /head
-Gives you the head of a player
-<br>Permission: cb-heads.command.head
-<br>Usage: /head <player: target>
-<br>Aliases: playerhead
+| Command | Description                    | Usage                  | Aliases    | Permission            |
+|---------|--------------------------------|------------------------|------------|-----------------------|
+| head    | Gives you the head of a player | /head <player: target> | playerhead | cb-heads.command.head |
 
 **All commands can be configured in the config file.**
 
 # Permissions
-## cb-heads.command.head:
-Permission for the /head command
-<br>Default permission state: op
-
-## cb-heads.bypass.waiting:
-Permission to bypass the head claim cooldown
-<br>Default permission state: op
-
-## cb-heads.bypass.blacklist:
-Permission to get heads from players on the blacklist
-<br>Default permission state: false
-
-## cb-heads.bypass.blacklist.playername:
-Permission to get heads from the given player even if they are on the blacklist
-<br>Default permission state: false
+| Permission                           | Description                                                                     | Default |
+|--------------------------------------|---------------------------------------------------------------------------------|---------|
+| cb-heads.command.head                | Permission for the /head command                                                | op      |
+| cb-heads.bypass.waiting              | Permission to bypass the head claim cooldown                                    | op      |
+| cb-heads.bypass.blacklist            | Permission to get heads from players on the blacklist                           | false   |
+| cb-heads.bypass.blacklist.playername | Permission to get heads from the given player even if they are on the blacklist | false   |
 
 ## Cooldowns
 You can create multiple head claim cooldowns for different permissions in the config.
@@ -38,7 +27,7 @@ You can create multiple head claim cooldowns for different permissions in the co
 # License
 CB-Heads is licensed under the GNU General Public License v3.0.
 <br>Further information: https://choosealicense.com/licenses/gpl-3.0
-<br><code>© 2019 - 2021 Wertzui123</code>
+<br><code>© 2019 - 2022 Wertzui123</code>
 
 # Credits
 This plugin is based on PlayerHead by Enes5519, which has been improved by wolfgamer2805.

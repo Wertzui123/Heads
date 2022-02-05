@@ -7,7 +7,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class EventListener implements Listener
 {
@@ -22,8 +22,8 @@ class EventListener implements Listener
     public function onPlace(BlockPlaceEvent $event)
     {
         if ($event->isCancelled() || ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin') === null) return;
-        $event->setCancelled();
-        $this->plugin->spawnHead(($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin'), ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getString('Player'), $event->getBlock(), Main::getYaw($event->getBlock(), $event->getPlayer()));
+        $event->cancel();
+        $this->plugin->spawnHead(($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin'), ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getString('Player'), $event->getBlock()->getPosition(), Main::getYaw($event->getBlock()->getPosition(), $event->getPlayer()->getPosition()));
         if (!$event->getPlayer()->isCreative()) {
             $item = $event->getPlayer()->getInventory()->getItemInHand();
             $item->pop();

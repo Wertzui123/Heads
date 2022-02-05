@@ -1,6 +1,6 @@
 ---
 # Only change this if you know what you're doing!
-config-version: 3.1
+config-version: 4.0
 
 # Command
 command:

@@ -1,19 +1,17 @@
 name: CB-Heads
-version: "3.2"
+version: "4.0"
 main: Wertzui123\CBHeads\Main
-api: [3.0.0]
+api: 4.0.0
 author: Wertzui123
-authors: [Enes5519, Wertzui123]
+authors: [Wertzui123, Enes5519]
+load: STARTUP
 permissions:
-  cb-heads:
+  cb-heads.command.head:
+    description: Permission for the /head command
     default: op
-    children:
-      cb-heads.command.head:
-        description: Permission for the /head command
-        default: op
-      cb-heads.bypass.waiting:
-        description: Permission to bypass the head claim cooldown
-        default: op
-      cb-heads.bypass.blacklist:
-        description: Permission to get heads from players on the blacklist
-        default: false
+  cb-heads.bypass.waiting:
+    description: Permission to bypass the head claim cooldown
+    default: op
+  cb-heads.bypass.blacklist:
+    description: Permission to get heads from players on the blacklist
+    default: false

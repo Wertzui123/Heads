@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Wertzui123\CBHeads\commands;
 
-use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
 use Wertzui123\CBHeads\Main;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
-class headCommand extends Command implements PluginIdentifiableCommand
+class headCommand extends Command implements PluginOwned
 {
 
     private $plugin;
@@ -37,11 +37,11 @@ class headCommand extends Command implements PluginIdentifiableCommand
             $sender->sendMessage($this->plugin->getMessage('command.head.passPlayer'));
             return;
         }
-        if ($this->plugin->getServer()->getPlayer(implode(' ', $args)) === null) {
+        if ($this->plugin->getServer()->getPlayerByPrefix(implode(' ', $args)) === null) {
             $sender->sendMessage($this->plugin->getMessage('command.head.notOnline'));
             return;
         }
-        $player = $sender->getServer()->getPlayer(implode(' ', $args));
+        $player = $sender->getServer()->getPlayerByPrefix(implode(' ', $args));
         if (in_array($player->getName(), $this->plugin->getConfig()->get('blacklist')) && !$sender->hasPermission('cb-heads.bypass.blacklist.' . $player->getName()) && !$sender->hasPermission('cb-heads.bypass.blacklist')) {
             $sender->sendMessage($this->plugin->getMessage('command.head.onBlacklist'));
             return;
@@ -57,7 +57,7 @@ class headCommand extends Command implements PluginIdentifiableCommand
         $sender->sendMessage($this->plugin->getMessage('command.head.success', ['{player}' => $player->getName()]));
     }
 
-    public function getPlugin(): Plugin
+    public function getOwningPlugin(): Plugin
     {
         return $this->plugin;
     }
