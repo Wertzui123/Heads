@@ -23,11 +23,12 @@ class Head extends Human
 
     protected function initEntity(CompoundTag $nbt): void
     {
+        parent::initEntity($nbt);
         $this->player = $nbt->getString('Player');
         $this->setMaxHealth(1);
         $this->setSkin(new Skin($this->skin->getSkinId(), $this->skin->getSkinData(), '', 'geometry.player_head', self::HEAD_GEOMETRY));
         $this->setImmobile();
-        parent::initEntity($nbt);
+        $this->getXpManager()->setCanAttractXpOrbs(false);
     }
 
     protected function getInitialSizeInfo(): EntitySizeInfo
