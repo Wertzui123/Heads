@@ -23,7 +23,7 @@ class EventListener implements Listener
     {
         if ($event->isCancelled() || ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin') === null) return;
         $event->cancel();
-        $this->plugin->spawnHead(($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin'), ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getString('Player'), $event->getBlock()->getPosition(), Main::getYaw($event->getBlock()->getPosition(), $event->getPlayer()->getPosition()));
+        $this->plugin->spawnHead(($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin'), ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getString('Player', ($event->getPlayer()->getInventory()->getItemInHand()->getCustomBlockData() ?? new CompoundTag())->getCompoundTag('Skin')->getString('Name')), $event->getBlock()->getPosition(), Main::getYaw($event->getBlock()->getPosition(), $event->getPlayer()->getPosition()));
         if (!$event->getPlayer()->isCreative()) {
             $item = $event->getPlayer()->getInventory()->getItemInHand();
             $item->pop();
