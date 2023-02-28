@@ -203,7 +203,7 @@ class Main extends PluginBase
     {
         $days = floor($seconds / 86400);
         $hours = floor($seconds / 3600) % 24;
-        $minutes = floor(($seconds / 60) % 60);
+        $minutes = floor(floor($seconds / 60) % 60);
         $seconds = $seconds % 60;
         return str_replace(['{days}', '{hours}', '{minutes}', '{seconds}'], [$days, $hours, $minutes, $seconds], $message);
     }
