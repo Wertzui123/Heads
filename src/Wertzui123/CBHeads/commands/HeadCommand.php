@@ -11,7 +11,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 
-class headCommand extends Command implements PluginOwned
+class HeadCommand extends Command implements PluginOwned
 {
 
     private $plugin;

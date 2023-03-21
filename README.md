@@ -27,7 +27,7 @@ You can create multiple head claim cooldowns for different permissions in the co
 # License
 CB-Heads is licensed under the GNU General Public License v3.0.
 <br>Further information: https://choosealicense.com/licenses/gpl-3.0
-<br><code>© 2019 - 2022 Wertzui123</code>
+<br><code>© 2019 - 2023 Wertzui123</code>
 
 # Credits
 This plugin is based on PlayerHead by Enes5519, which has been improved by wolfgamer2805.

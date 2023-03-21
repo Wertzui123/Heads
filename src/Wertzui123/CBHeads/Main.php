@@ -12,7 +12,7 @@ use pocketmine\item\VanillaItems;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\world\World;
-use Wertzui123\CBHeads\commands\headCommand;
+use Wertzui123\CBHeads\commands\HeadCommand;
 use Wertzui123\CBHeads\entities\Head;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Skin;
@@ -39,14 +39,14 @@ class Main extends PluginBase
         self::$instance = $this;
         $this->saveResource('head.json');
         $this->saveResource('strings.yml');
-        $this->configUpdater();
+        $this->updateConfig();
         $this->playersFile = new Config($this->getDataFolder() . 'players.json', Config::JSON);
         $this->stringsFile = new Config($this->getDataFolder() . 'strings.yml', Config::YAML);
         EntityFactory::getInstance()->register(Head::class, function (World $world, CompoundTag $nbt): Entity {
             return new Head(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
         }, ['Head', 'HeadEntity', 'PlayerHead']);
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-        $this->getServer()->getCommandMap()->register('CB-Heads', new headCommand($this));
+        $this->getServer()->getCommandMap()->register('CB-Heads', new HeadCommand($this));
     }
 
     /**
@@ -178,7 +178,7 @@ class Main extends PluginBase
     /**
      * Checks whether the config version is the latest and updates the config files if it isn't
      */
-    public function configUpdater()
+    public function updateConfig()
     {
         if (!file_exists($this->getDataFolder() . 'config.yml')) {
             $this->saveResource('config.yml');
