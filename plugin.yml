@@ -1,7 +1,7 @@
 name: CB-Heads
-version: "4.3"
+version: "4.4"
 main: Wertzui123\CBHeads\Main
-api: 4.0.0
+api: 5.0.0
 author: Wertzui123
 authors: [Wertzui123, Enes5519]
 load: STARTUP

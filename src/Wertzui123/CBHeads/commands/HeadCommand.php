@@ -19,7 +19,7 @@ class HeadCommand extends Command implements PluginOwned
     public function __construct(Main $plugin)
     {
         parent::__construct($plugin->getConfig()->getNested('command.command'), $plugin->getConfig()->getNested('command.description'), $plugin->getConfig()->getNested('command.usage'), $plugin->getConfig()->getNested('command.aliases'));
-        $this->setPermission('cb-heads.command.head');
+        $this->setPermissions(['cb-heads.command.head']);
         $this->plugin = $plugin;
     }
 
@@ -29,7 +29,7 @@ class HeadCommand extends Command implements PluginOwned
             $sender->sendMessage($this->plugin->getMessage('command.head.runIngame'));
             return;
         }
-        if (!$sender->hasPermission($this->getPermission())) {
+        if (!$sender->hasPermission($this->getPermissions()[0])) {
             $sender->sendMessage($this->plugin->getMessage('command.head.noPermission'));
             return;
         }

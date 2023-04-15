@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Wertzui123\CBHeads;
 
+use pocketmine\block\utils\SkullType;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\entity\EntityDataHelper;
 use pocketmine\entity\EntityFactory;
 use pocketmine\entity\Human;
 use pocketmine\entity\Location;
-use pocketmine\item\VanillaItems;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\world\World;
@@ -143,7 +144,7 @@ class Main extends PluginBase
     public function getHeadItem($skin, $name = null): Item
     {
         $skin = $skin instanceof Skin ? self::skinToTag($skin) : $skin;
-        $item = VanillaItems::PLAYER_HEAD();
+        $item = VanillaBlocks::MOB_HEAD()->setSkullType(SkullType::PLAYER())->asItem();
         $tag = $item->getCustomBlockData() ?? new CompoundTag();
         $tag->setTag('Skin', $skin);
         $tag->setString('Player', $name);
