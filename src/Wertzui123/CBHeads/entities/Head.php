@@ -27,7 +27,6 @@ class Head extends Human
         $this->player = $nbt->getString('Player');
         $this->setMaxHealth(1);
         $this->setSkin(new Skin($this->skin->getSkinId(), $this->skin->getSkinData(), '', 'geometry.player_head', self::HEAD_GEOMETRY));
-        $this->setImmobile();
         $this->getXpManager()->setCanAttractXpOrbs(false);
     }
 
