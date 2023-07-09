@@ -51,7 +51,7 @@ class Head extends Human
         /** @var Player $player */
         $player = $source->getDamager();
         $block = VanillaBlocks::MOB_HEAD()->setMobHeadType(MobHeadType::PLAYER());
-        $block->position($this->getWorld(), $this->getPosition()->floor()->getX(), $this->getPosition()->getY(), $this->getPosition()->getZ());
+        $block->position($this->getWorld(), $this->getPosition()->getFloorX(), $this->getPosition()->getFloorY(), $this->getPosition()->getFloorZ());
         $event = new BlockBreakEvent($player, $block, $player->getInventory()->getItemInHand(), false, $this->getDrops());
         $event->call();
         if ($event->isCancelled()) {
