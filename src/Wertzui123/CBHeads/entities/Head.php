@@ -2,7 +2,7 @@
 
 namespace Wertzui123\CBHeads\entities;
 
-use pocketmine\block\utils\SkullType;
+use pocketmine\block\utils\MobHeadType;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\entity\EntitySizeInfo;
 use pocketmine\nbt\tag\CompoundTag;
@@ -50,7 +50,7 @@ class Head extends Human
         if ($source->getCause() !== EntityDamageEvent::CAUSE_ENTITY_ATTACK) return;
         /** @var Player $player */
         $player = $source->getDamager();
-        $block = VanillaBlocks::MOB_HEAD()->setSkullType(SkullType::PLAYER());
+        $block = VanillaBlocks::MOB_HEAD()->setMobHeadType(MobHeadType::PLAYER());
         $block->position($this->getWorld(), $this->getPosition()->floor()->getX(), $this->getPosition()->getY(), $this->getPosition()->getZ());
         $event = new BlockBreakEvent($player, $block, $player->getInventory()->getItemInHand(), false, $this->getDrops());
         $event->call();
