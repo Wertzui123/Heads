@@ -25,6 +25,7 @@ class Head extends Human
     {
         parent::initEntity($nbt);
         $this->player = $nbt->getString('Player');
+        var_dump($this->player);
         $this->setMaxHealth(1);
         $this->setSkin(new Skin($this->skin->getSkinId(), $this->skin->getSkinData(), '', 'geometry.player_head', self::HEAD_GEOMETRY));
         $this->getXpManager()->setCanAttractXpOrbs(false);

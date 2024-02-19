@@ -143,6 +143,7 @@ class Main extends PluginBase
      */
     public function getHeadItem($skin, $name = null): Item
     {
+        var_dump($name);
         $skin = $skin instanceof Skin ? self::skinToTag($skin) : $skin;
         $item = VanillaBlocks::MOB_HEAD()->setMobHeadType(MobHeadType::PLAYER())->asItem();
         $tag = $item->getCustomBlockData() ?? new CompoundTag();
